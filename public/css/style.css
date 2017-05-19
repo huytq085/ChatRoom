@@ -1,0 +1,19 @@
+body {
+    background-color: #555!important
+}
+#left{
+
+}
+#right {
+
+}
+#listMessages {
+    height: 200px;
+    background-color: #fcaed4
+}
+.loginForm {
+    display: none;
+}
+.chatForm {
+    display: none;
+}
