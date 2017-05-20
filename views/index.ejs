@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,15 +12,16 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/chat.js"></script>
-    
+
     <script src="/js/scripts.js"></script>
-    
+
     <title>Document</title>
 </head>
+
 <body>
     <!--Header-->
     <div class="header">
-         <div class="loginForm">
+        <div class="loginForm">
             <h3>What's your name?</h3>
             <input type="text" id="txtUserName">
             <input type="button" value="Register" id="btnRegister">
@@ -28,35 +30,37 @@
 
     <!--Container-->
     <div class="wrapper">
-       
-        
+
+
         <div class="chatForm">
             <div class="sayHi">
-            Hello <span id="currentUser">Teo</span>
-            <input type="button" id="btnLogout" value="logout">
-        </div>
+                Hello <span id="currentUser"></span>
+                <input type="button" id="btnLogout" value="logout">
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-4" id="left">
                         <div class="panel panel-default">
-  <div class="panel-heading">Users Online</div>
-  <div class="panel-body" id="listUsers">
-    Panel content
-  </div>
-</div>
+                            <div class="panel-heading">Users Online</div>
+                            <div class="panel-body" id="listUsers">
+                                Panel content
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-8" id="right">
-        <div class="panel panel-default">
-  <div class="panel-heading">Panel heading without title</div>
-  <div class="panel-body" id="listMessages">
-    Panel content
-  </div>
-</div>
-<input type="text" id="txtMessage"/>
-<input type="button" id="btnSendMessage" value="Send"/>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Panel heading without title</div>
+                            <div class="panel-body" id="listMessages">
+                                Panel content
+                            </div>
+                        </div>
+                        <input type="text" id="txtMessage" />
+                        <input type="button" id="btnSendMessage" value="Send" />
                     </div>
-                </div>  <!--end of row-->
-            </div><!--end of container-->
+                </div>
+                <!--end of row-->
+            </div>
+            <!--end of container-->
         </div>
 
 
@@ -67,10 +71,11 @@
     <div class="footer">
 
     </div>
-    
+
 
     <!--Scripts-->
-   
-    
+
+
 </body>
+
 </html>
