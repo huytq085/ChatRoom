@@ -1,5 +1,9 @@
 var socket = io('http://localhost:4000')
-
+var privateKey = ""
+socket.on('server-send-key', function(data){
+    privateKey = data
+    
+})
 socket.on('server-send-thatbai', function (data) {
     $('.form-inline').addClass('has-error');
     $("#registerResult").html(`<b>${data}</b> already registered`)
@@ -29,7 +33,7 @@ socket.on('server-send-thanhcong-moinguoi', function (data) {
 //Nguoi dung nhan tin nhan da duoc giai ma
 socket.on('server-send-message', function (data) {
     //Giai ma tin nhan truoc khi gui
-    var decrypted = CryptoJS.AES.decrypt(data.message, "Secret Passphrase");
+    var decrypted = CryptoJS.AES.decrypt(data.message, privateKey);
     if (data.id == socket.id) myMessage = 'myRight'; else myMessage = '';
     $("#listMessages").append(`<div class="messages ${myMessage}"><span style="font-weight:700">${data.username}</span>: ${decrypted.toString(CryptoJS.enc.Utf8)}</div>`)
     $('#listMessages').scrollTop($('#listMessages').prop('scrollHeight'));
@@ -61,7 +65,8 @@ $(document).ready(function () {
 
     })
     $("#btnSendMessage").click(function () {
-        var encrypted = CryptoJS.AES.encrypt($("#txtMessage").val(), "Secret Passphrase");
+        
+        var encrypted = CryptoJS.AES.encrypt($("#txtMessage").val(),privateKey);
         socket.emit('user-send-message', encrypted.toString());
         $('#txtMessage').val('')
 
@@ -69,7 +74,7 @@ $(document).ready(function () {
     })
     $("#btnNoEncrypt").click(function () {
         //Truoc khi gui di, ma hoa tin nhan
-        var encrypted = CryptoJS.AES.encrypt($("#txtMessage").val(), "Secret Passphrase");
+        var encrypted = CryptoJS.AES.encrypt($("#txtMessage").val(), privateKey);
         socket.emit('user-send-message-noencrypt', encrypted.toString());
         $('#txtMessage').val('')
 
@@ -79,7 +84,7 @@ $(document).ready(function () {
     $('#txtMessage').keydown(function (event) {
         var keypressed = event.keyCode || event.which;
         if (keypressed == 13) {
-            var encrypted = CryptoJS.AES.encrypt($("#txtMessage").val(), "Secret Passphrase");
+            var encrypted = CryptoJS.AES.encrypt($("#txtMessage").val(), privateKey);
             socket.emit('user-send-message', encrypted.toString());
             $('#txtMessage').val('')
             // socket.emit('user-send-message', $('#txtMessage').val());
