@@ -7,7 +7,7 @@ app.set('views', './views');
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 server.listen(3001);
-
+console.log("localhost:3001")
 var usersList = []
 var usersList1 = []
 io.on('connection', function (socket) {
@@ -35,6 +35,10 @@ io.on('connection', function (socket) {
             socket.broadcast.emit('server-send-thanhcong-moinguoi', usersList)
                 
             }
+        })
+        socket.on('user-send-message', function(data){
+            io.sockets.emit('server-send-message', {"username": socket.userName, "message": data})
+            console.log(data)
         })
         
     })
