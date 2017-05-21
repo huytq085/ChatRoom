@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.css">
     <script src="/js/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <script src="/js/aes.js"></script>
 
     <script src="/libs/bootstrap/js/bootstrap.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -22,26 +22,56 @@
 
 <body>
     <!--Header-->
-    <div class="header">
+    <div class="header text-center">
         <div class="loginForm">
+
             <h3>What's your name?</h3>
-            <input type="text" id="txtUserName">
-            <input type="button" value="Register" id="btnRegister">
+            <div class="form-inline">
+                <input type="text" class="form-control" id="txtUserName">
+                <input class="btn btn-primary" type="button" value="Register" id="btnRegister">
+            </div>
+            <p class="" id="registerResult"></p>
+
         </div>
     </div>
+
 
     <!--Container-->
     <div class="wrapper">
 
 
         <div class="chatForm">
-            <div class="sayHi">
-                Hello <span id="currentUser"></span>
-                <input type="button" id="btnLogout" value="logout">
-            </div>
+
             <div class="container">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                                aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        
+                    </button>
+                            <a class="navbar-brand" href="#">Chat Room</a>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <div id="user">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="#" id="btnLogout">Logout</a></li>
+                                </ul>
+                                <p class="navbar-text navbar-right">Signed in as <span id="currentUser"></span><a href="#" class="navbar-link" id="userInfo"></a></p>
+                            </div>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+
                 <div class="row">
-                    <div class="col-md-4" id="left">
+                    <div class="col-md-3" id="left">
                         <div class="panel panel-default">
                             <div class="panel-heading">Users Online</div>
                             <div class="panel-body" id="listUsers">
@@ -49,17 +79,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8" id="right">
+                    <div class="col-md-9" id="right">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Panel heading without title</div>
                             <div class="panel-body" id="listMessages">
 
                             </div>
                             <div><small id="gophim"></small></div>
+                            <div class="row sendBox">
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="txtMessage" />
+
+                                </div>
+                                <div class="col-md-4">
+                                    <input class="btn btn-primary" type="button" id="btnSendMessage" value="Send" />
+                                    <input class="btn btn-primary" type="button" id="btnNoEncrypt" value="Send without encrypt" />
+                                </div>
+                            </div>
                         </div>
-                        <input type="text" id="txtMessage" />
-                        <input type="button" id="btnSendMessage" value="Send" />
-                        <input type="button" id="btnNoEncrypt" value="Send without encrypt" />
+                        <!--<div class="form-inline">-->
+
+
+                        <!--</div>-->
                     </div>
                 </div>
                 <!--end of row-->

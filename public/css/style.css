@@ -9,11 +9,41 @@ body {
 }
 #listMessages {
     height: 200px;
-    background-color: #fcaed4
+    /*background-color: #fcaed4*/
 }
 .loginForm {
     display: none;
 }
 .chatForm {
     display: none;
+}
+#listMessages {
+    height: 400px;
+    overflow: auto;
+}
+#listUsers {
+    height: 400px;
+    overflow: auto;
+}
+.sendBox {
+    padding: 10px;
+}
+#registerResult{
+    color: red;
+}
+.messages {
+    background-color: #0084ff;
+    width: 60%;
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    margin-bottom: 20px;
+    clear: both;
+}
+.myRight {
+    float: right;
+    background: #eee;
+    color: #333;
+    text-align: right;
+    clear: both;
 }

@@ -1,18 +1,21 @@
-var socket = io('http://localhost:3001')
+var socket = io('http://localhost:4000')
 
 socket.on('server-send-thatbai', function (data) {
-    alert(`${data} có người sử dụng rồi`)
+    $('.form-inline').addClass('has-error');
+    $("#registerResult").html(`<b>${data}</b> already registered`)
 })
 socket.on('server-send-thanhcong', function (data) {
     $(".loginForm").hide('2000');
     $(".chatForm").show('1000');
+    $('.form-inline').removeClass('has-error');
     $("#currentUser").append(`<span style="font-weight: 700;">${data}</span>`)
     //  $('#listUsers').append(data)
 })
 socket.on('server-logout', function () {
-    
+
     $("#currentUser").html('')
-    // alert('a')
+    $("#listMessages").html('')
+
 })
 socket.on('server-send-thanhcong-moinguoi', function (data) {
     // var $newdiv1 = $( "<p></p>" ),
@@ -20,25 +23,30 @@ socket.on('server-send-thanhcong-moinguoi', function (data) {
     $('#listUsers').html("")
 
     data.forEach(function (i) {
-        $('#listUsers').append(`<div class="users">${i}</div>`)
+        $('#listUsers').append(`<a href="#" class="list-group-item">${i}</a>`)
     })
 })
 //Nguoi dung nhan tin nhan da duoc giai ma
 socket.on('server-send-message', function (data) {
     //Giai ma tin nhan truoc khi gui
     var decrypted = CryptoJS.AES.decrypt(data.message, "Secret Passphrase");
-    $("#listMessages").append(`<div class="listMessages"><span style="font-weight:700">${data.username}</span>: ${decrypted.toString(CryptoJS.enc.Utf8)}</div>`)
+    if (data.id == socket.id) myMessage = 'myRight'; else myMessage = '';
+    $("#listMessages").append(`<div class="messages ${myMessage}"><span style="font-weight:700">${data.username}</span>: ${decrypted.toString(CryptoJS.enc.Utf8)}</div>`)
+    $('#listMessages').scrollTop($('#listMessages').prop('scrollHeight'));
     // $("#listMessages").append(`<div class="listMessages"><span style="font-weight:700">${data.username}</span>: ${data.message}</div>`)
 })
 //Nguoi dung nhan tin nhan da duoc ma hoa nhung chua giai ma
 socket.on('server-send-message-noencrypt', function (data) {
-    $("#listMessages").append(`<div class="listMessages"><span style="font-weight:700">${data.username}</span>: ${data.message}</div>`)
+    if (data.id == socket.id) myMessage = 'myRight'; else myMessage = '';
+    $("#listMessages").append(`<div class="messages ${myMessage}"><span style="font-weight:700">${data.username}</span>: ${data.message}</div>`)
+    $('#listMessages').scrollTop($('#listMessages').prop('scrollHeight'));
+    
 })
-socket.on('co-nguoi-go-phim',function(data){
-$("#gophim").html(`<img src="/img/typing.gif" style="width: 30px"/><b>${data}</b> đang nhập văn bản`)
+socket.on('co-nguoi-go-phim', function (data) {
+    $("#gophim").html(`<img src="/img/typing.gif" style="width: 30px"/><b>${data}</b> đang nhập văn bản`)
 })
-socket.on('khong-con-go-phim',function(data){
-$("#gophim").html('')
+socket.on('khong-con-go-phim', function (data) {
+    $("#gophim").html('')
 })
 $(document).ready(function () {
     $(".loginForm").show();
@@ -83,10 +91,11 @@ $(document).ready(function () {
             socket.emit('Client-send-reg', $("#txtUserName").val());
         }
     });
-    $('#txtMessage').focusin(function(){
+
+    $('#txtMessage').focusin(function () {
         socket.emit('dang-go-phim')
     })
-    $('#txtMessage').focusout(function(){
+    $('#txtMessage').focusout(function () {
         socket.emit('ngung-go-phim')
     })
 })

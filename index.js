@@ -6,8 +6,8 @@ app.set('views', './views');
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-server.listen(3001);
-console.log("localhost:3001")
+server.listen(4000);
+console.log("localhost:4000")
 var usersList = []
 var usersList1 = []
 io.on('connection', function (socket) {
@@ -41,12 +41,12 @@ io.on('connection', function (socket) {
         //Server nhan tin nhan duoc ma hoa
         socket.on('user-send-message', function (data) {
             console.log("user-send-message" + data)
-            io.sockets.emit('server-send-message', { "username": socket.userName, "message": data })
+            io.sockets.emit('server-send-message', { "id": socket.id, "username": socket.userName, "message": data })
             console.log(data)
         })
         socket.on('user-send-message-noencrypt', function (data) {
             console.log("user-send-message-noencrypt" + data)
-            io.sockets.emit('server-send-message-noencrypt', { "username": socket.userName, "message": data })
+            io.sockets.emit('server-send-message-noencrypt', { "id": socket.id, "username": socket.userName, "message": data })
             console.log(data)
         })
         socket.on('dang-go-phim', function(){
