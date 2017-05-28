@@ -50,3 +50,8 @@ body {
     background-color: #d9edf7;
 }
 
+@media(max-width:768px) {
+    #txtUserName {
+        margin-bottom: 10px;
+    }
+}

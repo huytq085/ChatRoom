@@ -12,6 +12,7 @@ socket.on('server-send-thanhcong', function (data) {
     $(".loginForm").hide('2000');
     $(".chatForm").show('1000');
     $('.form-inline').removeClass('has-error');
+    $("#registerResult").html("")
     $("#currentUser").append(`<span style="font-weight: 700;">${data}</span>`)
     //  $('#listUsers').append(data)
 })
@@ -107,8 +108,14 @@ $(document).ready(function () {
         }
     });
 
-    $('#txtMessage').focusin(function () {
+    $('#txtMessage').keypress(function () {
         socket.emit('dang-go-phim')
+        $('#txtMessage').keyup(function () {
+            if( !$(this).val() ) {
+            socket.emit('ngung-go-phim')
+        }
+    })
+        
     })
     $('#txtMessage').focusout(function () {
         socket.emit('ngung-go-phim')
