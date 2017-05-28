@@ -21,7 +21,6 @@ io.on('connection', function (socket) {
     })
     socket.on('Client-send-reg', function (data) {
         socket.userName = data
-
         if (usersList.indexOf(data) >= 0) {
 
             socket.emit('server-send-thatbai', data)
@@ -31,17 +30,22 @@ io.on('connection', function (socket) {
             io.sockets.emit('server-send-thanhcong-moinguoi', usersList)
 
         }
-        socket.on('logout', function () {
-            if (usersList.indexOf(socket.userName) >= 0) {
-                usersList.splice(usersList.indexOf(socket.userName), 1);
-                socket.broadcast.emit('server-send-thanhcong-moinguoi', usersList)
-                socket.emit('server-logout')
-            }
+
+        
+
+    })
+    socket.on('logout', function () {
+        if (usersList.indexOf(socket.userName) >= 0) {
+            usersList.splice(usersList.indexOf(socket.userName), 1);
+            socket.broadcast.emit('server-send-thanhcong-moinguoi', usersList)
+
             socket.emit('server-logout')
-        })
+        }
+        socket.emit('server-logout')
+    })
         //Server nhan tin nhan duoc ma hoa
         socket.on('user-send-message', function (data) {
-            console.log(`Nguoi dung vua gui tin nhan voi noi dung la:
+            console.log(`${socket.userName} vua gui tin nhan voi noi dung la:
 ${data}`)
             io.sockets.emit('server-send-message', { "id": socket.id, "username": socket.userName, "message": data })
         })
@@ -54,12 +58,9 @@ ${data}`)
         socket.on('ngung-go-phim', function(){
             socket.broadcast.emit('khong-con-go-phim')
         })
-        
-
-    })
 
 
-});
+    });
 
 app.get('/', function (req, res) {
     res.render('index');

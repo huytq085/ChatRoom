@@ -56,7 +56,12 @@ $(document).ready(function () {
     $(".loginForm").show();
     // alert('avc')
     $("#btnRegister").click(function () {
-        socket.emit('Client-send-reg', $("#txtUserName").val());
+        if ($("#txtUserName").val() != ""){
+            socket.emit('Client-send-reg', $("#txtUserName").val());
+
+        } else {
+            $('.form-inline').addClass('has-error');
+        }
     })
     $("#btnLogout").click(function () {
         socket.emit('logout');
@@ -65,7 +70,7 @@ $(document).ready(function () {
 
     })
     $("#btnSendMessage").click(function () {
-        
+
         var encrypted = CryptoJS.AES.encrypt($("#txtMessage").val(),privateKey);
         socket.emit('user-send-message', encrypted.toString());
         $('#txtMessage').val('')
@@ -93,7 +98,12 @@ $(document).ready(function () {
     $('#txtUserName').keydown(function (event) {
         var keypressed = event.keyCode || event.which;
         if (keypressed == 13) {
-            socket.emit('Client-send-reg', $("#txtUserName").val());
+            if ($("#txtUserName").val() != ""){
+                socket.emit('Client-send-reg', $("#txtUserName").val());
+
+            } else {
+                $('.form-inline').addClass('has-error');
+            }
         }
     });
 

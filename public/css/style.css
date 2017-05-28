@@ -32,11 +32,10 @@ body {
     color: red;
 }
 .messages {
-    background-color: #0084ff;
+    background-color: #d9edf7;
     width: 60%;
     padding: 20px;
     border-radius: 10px;
-    color: #fff;
     margin-bottom: 20px;
     clear: both;
 }
@@ -46,5 +45,8 @@ body {
     color: #333;
     text-align: right;
     clear: both;
+}
+.navbar-right:hover {
+    background-color: #d9edf7;
 }
 

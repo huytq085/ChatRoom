@@ -60,5 +60,5 @@ io.on('connection', function(socket) {
 });
 
 app.get('/', function(req, res) {
-    res.render('app');
+    res.render('index');
 });
