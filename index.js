@@ -6,8 +6,9 @@ app.set('views', './views');
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-server.listen(4000);
-console.log("localhost:4000")
+server.listen(process.env.PORT || 3000, function(){
+  console.log('listening on ', server.address().port);
+});
 var usersList = []
 var usersList1 = []
 var randomKey = Math.random().toString()
