@@ -1,4 +1,4 @@
-var socket = io('http://localhost:4000')
+var socket = io('https://tranquanghuy.herokuapp.com/')
 var privateKey = ""
 socket.on('server-send-key', function(data){
     privateKey = data
